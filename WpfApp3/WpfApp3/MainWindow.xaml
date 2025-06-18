@@ -1,0 +1,119 @@
+﻿<Window x:Class="CoffeeMaker.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CoffeeMaker"
+        mc:Ignorable="d"
+        Title="Кофейный Мастер PRO" Height="600" Width="1000"
+        WindowStartupLocation="CenterScreen">
+    <Grid Background="#FFE8D9C5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок с вкладками -->
+        <TabControl Grid.Row="0" Margin="10" Background="Transparent" BorderThickness="0">
+            <TabItem Header="Создать кофе" FontSize="16" FontWeight="Bold" Foreground="#FF6F4E37"/>
+            <TabItem Header="Рецепты" FontSize="16" FontWeight="Bold" Foreground="#FF6F4E37"/>
+        </TabControl>
+
+        <!-- Основная область -->
+        <Grid Grid.Row="1" Name="mainGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Ингредиенты с категориями -->
+            <ScrollViewer Grid.Column="0" Margin="10">
+                <StackPanel>
+                    <Label Content="Выберите ингредиенты:" FontSize="18" FontWeight="Bold" Foreground="#FF6F4E37"/>
+                    
+                    <Expander Header="Основа" IsExpanded="True" FontSize="16" Foreground="#FF6F4E37">
+                        <StackPanel>
+                            <CheckBox x:Name="chkEspresso" Content="Эспрессо (30 мл)" Margin="5,2" FontSize="14"/>
+                            <CheckBox x:Name="chkDoubleEspresso" Content="Двойной эспрессо (60 мл)" Margin="5,2" FontSize="14"/>
+                            <CheckBox x:Name="chkAmericano" Content="Американо (эспрессо + вода)" Margin="5,2" FontSize="14"/>
+                        </StackPanel>
+                    </Expander>
+
+                    <Expander Header="Молочные продукты" FontSize="16" Foreground="#FF6F4E37">
+                        <StackPanel>
+                            <CheckBox x:Name="chkMilk" Content="Молоко (100 мл)" Margin="5,2" FontSize="14"/>
+                            <CheckBox x:Name="chkFoam" Content="Молочная пена" Margin="5,2" FontSize="14"/>
+                            <CheckBox x:Name="chkWhippedCream" Content="Взбитые сливки" Margin="5,2" FontSize="14"/>
+                            <CheckBox x:Name="chkCondensedMilk" Content="Сгущённое молоко" Margin="5,2" FontSize="14"/>
+                        </StackPanel>
+                    </Expander>
+
+                    <Expander Header="Добавки" FontSize="16" Foreground="#FF6F4E37">
+                        <StackPanel>
+                            <CheckBox x:Name="chkChocolate" Content="Шоколад" Margin="5,2" FontSize="14"/>
+                            <CheckBox x:Name="chkCinnamon" Content="Корица" Margin="5,2" FontSize="14"/>
+                            <CheckBox x:Name="chkSyrup" Content="Сироп (ванильный)" Margin="5,2" FontSize="14"/>
+                            <CheckBox x:Name="chkCaramelSyrup" Content="Сироп (карамельный)" Margin="5,2" FontSize="14"/>
+                            <CheckBox x:Name="chkHoney" Content="Мёд" Margin="5,2" FontSize="14"/>
+                            <CheckBox x:Name="chkNutmeg" Content="Мускатный орех" Margin="5,2" FontSize="14"/>
+                        </StackPanel>
+                    </Expander>
+
+                    <Expander Header="Особые опции" FontSize="16" Foreground="#FF6F4E37">
+                        <StackPanel>
+                            <CheckBox x:Name="chkIce" Content="Лёд" Margin="5,2" FontSize="14"/>
+                            <CheckBox x:Name="chkAlcohol" Content="Ликёр (ирландский)" Margin="5,2" FontSize="14"/>
+                            <CheckBox x:Name="chkCoconutMilk" Content="Кокосовое молоко" Margin="5,2" FontSize="14"/>
+                        </StackPanel>
+                    </Expander>
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- Результат с анимацией -->
+            <Border Grid.Column="1" Margin="10" BorderBrush="#FF6F4E37" BorderThickness="2" 
+                    CornerRadius="10" Background="White">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Label x:Name="lblCoffeeName" Content="Ваш кофе" FontSize="24" FontWeight="Bold" 
+                           HorizontalAlignment="Center" Foreground="#FF6F4E37" Margin="10"/>
+
+                    <Viewbox Grid.Row="1" Stretch="Uniform" Margin="20">
+                        <Image x:Name="imgCoffeeCup" Source="/Images/coffee-cup.png" 
+                               Width="200" Height="200" Opacity="1"/>
+                    </Viewbox>
+
+                    <TextBlock x:Name="txtDescription" Grid.Row="2" TextWrapping="Wrap" Margin="15" 
+                              FontSize="14" Text="Выберите ингредиенты для приготовления кофе"/>
+
+                    <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                        <TextBlock Text="Оценка: " FontSize="16" VerticalAlignment="Center"/>
+                        <ItemsControl x:Name="ratingStars" ItemsSource="{Binding Stars}" 
+                                     ItemTemplate="{StaticResource StarTemplate}" 
+                                     ItemsPanel="{StaticResource StarsPanel}"/>
+                        <TextBlock x:Name="txtRating" Text="0/10" Margin="5,0,0,0" FontSize="16"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- Панель управления -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+            <Button x:Name="btnMakeCoffee" Content="Приготовить кофе!" Margin="5" Padding="15,5" 
+                    Background="#FF6F4E37" Foreground="White" FontSize="16" FontWeight="Bold"
+                    Click="MakeCoffee_Click"/>
+            <Button x:Name="btnSaveRecipe" Content="Сохранить рецепт" Margin="5" Padding="15,5" 
+                    Background="#FF8D6E47" Foreground="White" FontSize="16" 
+                    Click="SaveRecipe_Click"/>
+            <Button x:Name="btnRandomCoffee" Content="Случайный рецепт" Margin="5" Padding="15,5" 
+                    Background="#FF8D6E47" Foreground="White" FontSize="16" 
+                    Click="RandomCoffee_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

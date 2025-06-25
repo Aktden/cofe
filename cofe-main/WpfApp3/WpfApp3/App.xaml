@@ -1,9 +1,0 @@
-﻿<Application x:Class="CoffeeMaker.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:CoffeeMaker"
-             StartupUri="MainWindow.xaml">
-    <Application.Resources>
-        <local:AchievementBackgroundConverter x:Key="AchievementBackgroundConverter"/>
-    </Application.Resources>
-</Application>

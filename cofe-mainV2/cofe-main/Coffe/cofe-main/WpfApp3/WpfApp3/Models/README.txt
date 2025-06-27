@@ -1,0 +1,1 @@
+В этой папке находятся основные модели данных для MVVM-архитектуры: UserProfile, Ingredient, Recipe, Achievement, CoffeeHistoryItem. 
